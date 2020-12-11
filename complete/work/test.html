@@ -57,8 +57,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <script type="module">
       // XR globals.
       let xrButton = document.getElementById('xr-button');
-      let submitButton = document.getElementById('btnSubmit');    
-      let txtInput = document.getElementById('inpText');  
       let xrSession = null;
       let xrRefSpace = null;
 
@@ -82,24 +80,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           let message = "WebXR unavailable due to insecure context";
           document.getElementById("warning-zone").innerText = message;
         }
-          
+
         if (navigator.xr) {
           xrButton.addEventListener('click', onButtonClicked);
-          submitButton.addEventListener('click', onSubmitClicked);
           navigator.xr.addEventListener('devicechange', checkSupportedState);
           checkSupportedState();
         }
       }
 
-      function onSubmitClicked() {
-    
-        txtInput.value="Please Collect your cash!";
-        txtInput.disabled=true;
-        submitButton.innerHTML="Thanks for Using AR-ATM!";
-        submitButton.disabled=true;
-    
-      }
-        
       function onButtonClicked() {
         if (!xrSession) {
             // Ask for an optional DOM Overlay, see https://immersive-web.github.io/dom-overlays/
@@ -108,8 +96,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 domOverlay: {root: document.getElementById('overlay')}
             }).then(onSessionStarted, onRequestSessionError);
         } else {
-            ##TODO
-            ##Make text box and button visible
           xrSession.end();
         }
       }

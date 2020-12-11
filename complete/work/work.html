@@ -48,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <button id="xr-button" class="barebones-button" disabled>XR not found</button>
           <div id="inpDiv" >
               <input type="text" id="inpText" name="inpText" /><br><br>
-              <button id="btnSubmit">Submit!</button>
+              <button id="btnSubmit">Withdraw Cash!</button>
           </div>
         </details>
       </header>
@@ -114,10 +114,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           xrSession.end();
         }
       }
-
+        
+    function resetWithdraw() {
+        txtInput.value="";
+        txtInput.disabled=false;
+        submitButton.innerHTML="Withdraw Cash!";
+        submitButton.disabled=false;
+    }
+        
       function onSessionStarted(session) {
         xrSession = session;
         xrButton.innerHTML = 'Exit AR';
+          
+        resetWithdraw();
 
         // Show which type of DOM Overlay got enabled (if any)
         if (session.domOverlayState) {
@@ -150,6 +159,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         xrButton.innerHTML = 'Enter AR';
         document.getElementById('session-info').innerHTML = '';
         gl = null;
+          
+        resetWithdraw();
       }
 
       function onXRFrame(t, frame) {

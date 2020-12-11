@@ -122,11 +122,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         submitButton.disabled=false;
     }
         
+        function toggleInpDiv() {
+          var x = document.getElementById("inpDiv");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+        
       function onSessionStarted(session) {
         xrSession = session;
         xrButton.innerHTML = 'Exit AR';
-          
+        
+        toggleInpDiv();
         resetWithdraw();
+          
 
         // Show which type of DOM Overlay got enabled (if any)
         if (session.domOverlayState) {

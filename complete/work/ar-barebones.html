@@ -46,8 +46,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <div id="session-info"></div>
           <div id="warning-zone"></div>
           <button id="xr-button" class="barebones-button" disabled>XR not found</button>
-          <input id="btnAmount" class="barebones-button" >Withdraw!</input>
-          <button id="btnSubmit" class="barebones-button" >Withdraw!</button>
+          <input type="text" id="inpText" name="fname"><br><br>
+          <button id="btnSubmit">Submit!</button>
         </details>
       </header>
     </div>
@@ -57,6 +57,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <script type="module">
       // XR globals.
       let xrButton = document.getElementById('xr-button');
+      let submitButton = document.getElementById('btnSubmit');    
+      let txtInput = document.getElementById('inpText');  
       let xrSession = null;
       let xrRefSpace = null;
 
@@ -80,14 +82,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           let message = "WebXR unavailable due to insecure context";
           document.getElementById("warning-zone").innerText = message;
         }
-
+          
         if (navigator.xr) {
           xrButton.addEventListener('click', onButtonClicked);
+          submitButton.addEventListener('click', onSubmitClicked);
           navigator.xr.addEventListener('devicechange', checkSupportedState);
           checkSupportedState();
         }
       }
 
+      function onSubmitClicked() {
+        if (!xrSession) {
+            txtInput.value="Please Collect your cash!";
+            txtInput.disabled=true;
+            submitButton.innerHTML="Thanks for Using AR-ATM!"";
+            submitButton.disabled=true;
+            
+        } else {
+          #Do nothing
+        }
+      }
+        
       function onButtonClicked() {
         if (!xrSession) {
             // Ask for an optional DOM Overlay, see https://immersive-web.github.io/dom-overlays/
@@ -98,7 +113,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         } else {
             ##TODO
             ##Make text box and button visible
-            
           xrSession.end();
         }
       }

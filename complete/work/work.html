@@ -46,8 +46,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <div id="session-info"></div>
           <div id="warning-zone"></div>
           <button id="xr-button" class="barebones-button" disabled>XR not found</button>
-          <input type="text" id="inpText" name="inpText" /><br><br>
-          <button id="btnSubmit">Submit!</button>
+          <div id="inpDiv" >
+              <input type="text" id="inpText" name="inpText" /><br><br>
+              <button id="btnSubmit">Submit!</button>
+          </div>
         </details>
       </header>
     </div>
@@ -154,7 +156,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         let session = frame.session;
         session.requestAnimationFrame(onXRFrame);
         let pose = frame.getViewerPose(xrRefSpace);
-
+          
         if (pose) {
           gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
 

@@ -46,6 +46,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <div id="session-info"></div>
           <div id="warning-zone"></div>
           <button id="xr-button" class="barebones-button" disabled>XR not found</button>
+          <input id="btnAmount" class="barebones-button" >Withdraw!</input>
+          <button id="btnSubmit" class="barebones-button" >Withdraw!</button>
         </details>
       </header>
     </div>
@@ -94,6 +96,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 domOverlay: {root: document.getElementById('overlay')}
             }).then(onSessionStarted, onRequestSessionError);
         } else {
+            ##TODO
+            ##Make text box and button visible
+            
           xrSession.end();
         }
       }

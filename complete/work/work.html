@@ -46,7 +46,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <div id="session-info"></div>
           <div id="warning-zone"></div>
           <button id="xr-button" class="barebones-button" disabled>XR not found</button>
-        
+          <input type="text" id="inpText" name="inpText" /><br><br>
+          <button id="btnSubmit">Submit!</button>
         </details>
       </header>
     </div>
@@ -94,7 +95,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         if (!xrSession) {
             txtInput.value="Please Collect your cash!";
             txtInput.disabled=true;
-            submitButton.innerHTML="Thanks for Using AR-ATM!"";
+            submitButton.innerHTML="Thanks for Using AR-ATM!";
             submitButton.disabled=true;
             
         } else {

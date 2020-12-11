@@ -14,3 +14,5 @@ https://threejs.org/examples/#webgl_postprocessing_unreal_bloom
 Opencv javascript face detection
 ===================================
 https://docs.opencv.org/3.4/df/d6c/tutorial_js_face_detection_camera.html
+
+https://stackoverflow.com/questions/18625007/enable-rear-camera-with-html5

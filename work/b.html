@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, DOM Overlay! • A-Frame</title>
+    <meta name="description" content="Hello, World! • A-Frame">
+    <script src="./js/aframe-master.js"></script>
+    <style>
+      /* By default, hide the DOM Overlay element. */
+      #overlay {
+          display: none;
+      }
+      /* Show the DOM Overlay element while active (:xr-overlay pseudoclass) */
+      #overlay:xr-overlay {
+          display: initial;
+      }
+      #greeting {
+          background-color: rgba(1, 1, 1, 0.25);
+          margin: 10px;
+      }
+        #inpText {
+          position: absolute;
+          right: 100px;
+          bottom: 400px;
+          background: rgba(127,127,127,0.25);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+          font-weight: bold;
+      }  
+      #atm-ar {
+          position: absolute;
+          right: 100px;
+          bottom: 350px;
+          background: rgba(127,127,127,0.25);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+          font-weight: bold;
+      }    
+      #exit-ar {
+          position: absolute;
+          right: 40px;
+          bottom: 40px;
+          background: rgba(127,127,127,0.25);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+          font-weight: bold;
+      }
+    </style>
+    <script>
+      AFRAME.registerComponent('exit-ar-button', {
+        schema: {
+            element: {type: 'selector'}
+        },
+        init: function () {
+          this.data.element.addEventListener('click', ev => {
+              this.el.sceneEl.renderer.xr.getSession().end();
+          });
+        }
+      });
+    
+        AFRAME.registerComponent('atm-ar-button', {
+        schema: {
+            element: {type: 'selector'}
+        },
+        init: function () {
+          this.data.element.addEventListener('click', ev => {
+              alert("Thanks for using AR-ATM!!");
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <video id="cam_input" width="300" height="200"></video>
+    <canvas id="canvas_output"></canvas>
+    <div id="overlay">
+      <span id="greeting">
+        Hi, I'm the DOM Overlay
+      </span>
+      
+          <input type="text" id="inpText" name="inpText" /><br><br>
+          <button id="atm-ar">Withdraw</button>
+      
+      <button id="exit-ar">Exit AR</button>
+    </div>
+    <a-scene background="color: #ECECEC"
+             webxr="optionalFeatures: dom-overlay; overlayElement: #overlay">
+      <a-entity exit-ar-button="element: #exit-ar"></a-entity>
+        <a-entity atm-ar-button="element: #atm-ar"></a-entity>
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
+    </a-scene>
+  </body>
+    
+    <script type="text/JavaScript">
+function openCvReady() {
+  cv['onRuntimeInitialized']=()=>{
+    let video = document.getElementById("cam_input"); // video is the id of video tag
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    .then(function(stream) {
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(function(err) {
+        console.log("An error occurred! " + err);
+    });
+    let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+    let gray = new cv.Mat();
+    let cap = new cv.VideoCapture(cam_input);
+    let faces = new cv.RectVector();
+    let classifier = new cv.CascadeClassifier();
+    let utils = new Utils('errorMessage');
+    let faceCascadeFile = 'haarcascade_frontalface_default.xml'; // path to xml
+    utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
+    classifier.load(faceCascadeFile); // in the callback, load the cascade from file 
+});
+    const FPS = 24;
+    function processVideo() {
+        let begin = Date.now();
+        cap.read(src);
+        src.copyTo(dst);
+        cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
+        try{
+            classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+            console.log(faces.size());
+        }catch(err){
+            console.log(err);
+        }
+        for (let i = 0; i < faces.size(); ++i) {
+            let face = faces.get(i);
+            let point1 = new cv.Point(face.x, face.y);
+            let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+            cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+        }
+        cv.imshow("canvas_output", dst);
+        // schedule next one.
+        let delay = 1000/FPS - (Date.now() - begin);
+        setTimeout(processVideo, delay);
+}
+// schedule first one.
+setTimeout(processVideo, 0);
+  };
+}
+</script>
+    
+</html>

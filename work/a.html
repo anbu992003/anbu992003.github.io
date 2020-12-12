@@ -18,10 +18,20 @@
           background-color: rgba(1, 1, 1, 0.25);
           margin: 10px;
       }
+        #inpText {
+          position: absolute;
+          right: 100px;
+          bottom: 400px;
+          background: rgba(127,127,127,0.25);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+          font-weight: bold;
+      }  
       #atm-ar {
           position: absolute;
-          right: 80px;
-          bottom: 150px;
+          right: 100px;
+          bottom: 350px;
           background: rgba(127,127,127,0.25);
           color: white;
           border: 1px solid rgba(255,255,255,0.25);
@@ -57,7 +67,7 @@
         },
         init: function () {
           this.data.element.addEventListener('click', ev => {
-              
+              alert("Thanks for using AR-ATM!!");
           });
         }
       });

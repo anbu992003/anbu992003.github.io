@@ -16,3 +16,19 @@ Opencv javascript face detection
 https://docs.opencv.org/3.4/df/d6c/tutorial_js_face_detection_camera.html
 
 https://stackoverflow.com/questions/18625007/enable-rear-camera-with-html5
+
+
+
+
+
+
+Other links - References
+==========================
+https://github.com/immersive-web/dom-overlays/blob/master/explainer.md
+https://developer.mozilla.org/en-US/docs/Web/API/XRSystem/requestSession
+https://github.com/dataarts/dat.gui
+https://medium.com/youngsphere/9-hit-testing-dom-overlay-bf0aec1649f1
+https://github.com/aframevr/aframe/blob/master/examples/boilerplate/webxr-dom-overlay/index.html
+https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+
+
